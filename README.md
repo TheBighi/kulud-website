@@ -1,2 +1,2 @@
 # kulud-website
-KULUDDDDD
+KULUDDDDD veits pythonit backendiks, veits js html ja css ka
