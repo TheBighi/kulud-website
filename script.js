@@ -45,9 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(() => {
                 fetchExpenses();
-                form.reset();
             })
-            .catch(error => console.error('Error adding expense:', error));
+            .catch(error => console.error('Errorrrrr:', error));
         }
     });
 
