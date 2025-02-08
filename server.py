@@ -5,7 +5,7 @@ import sqlite3
 app = Flask(__name__)
 CORS(app) 
 
-# teeb kulud kui ei ole
+# teeb kulud databasi kui ei ole
 def init_db():
     conn = sqlite3.connect('kulud.db')
     cursor = conn.cursor()
