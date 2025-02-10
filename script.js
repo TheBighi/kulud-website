@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("expense-date").value = today;
 
     function fetchExpenses() {
-        fetch('http://127.0.0.1:5000/get_expenses')
+        fetch('http://127.0.0.1:8080/get_expenses')
             .then(response => response.json())
             .then(data => {
                 expenseList.innerHTML = "";
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const amount = document.getElementById("expense-amount").value;
 
         if (name && date && amount) {
-            fetch('http://127.0.0.1:5000/add_expense', {
+            fetch('http://127.0.0.1:8080/add_expense', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function deleteExpense(expenseId) {
-        fetch(`http://127.0.0.1:5000/delete_expense/${expenseId}`, {
+        fetch(`http://127.0.0.1:8080/delete_expense/${expenseId}`, {
             method: 'DELETE'
         })
         .then(response => response.json())
