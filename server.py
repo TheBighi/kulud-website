@@ -1,9 +1,13 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import sqlite3
 
 app = Flask(__name__)
 CORS(app) 
+
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 # teeb kulud databasi kui ei ole
 def init_db():
@@ -65,4 +69,4 @@ def delete_expense(expense_id):
     return jsonify({'message': 'Expense deleted successfully'}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
