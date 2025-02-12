@@ -7,6 +7,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const socket = io();
 
+    document.getElementById("delete-all-btn").addEventListener("click", function () {
+        if (confirm("Kindel?")) {
+            fetch('/delete_all_expenses', { method: 'DELETE' })
+            .then(response => response.json())
+            .then(() => {
+                fetchExpenses();
+            })
+            .catch(error => console.error('Error deleting all expenses:', error));
+        }
+    });
+
     function fetchExpenses() {
         fetch('/get_expenses')
             .then(response => response.json())
@@ -65,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     socket.on('update', function (data) {
         console.log(data.message);
-        fetchExpenses();  // Refresh expense list
+        fetchExpenses();  // refresh expense kõigil
     });
 
     fetchExpenses(); // load 
