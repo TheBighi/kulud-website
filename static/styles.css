@@ -83,3 +83,11 @@ ul li {
 .delete-btn:hover {
   background: darkred;
 }
+
+#expense-list {
+  max-height: 300px; /* Adjust the height as needed */
+  overflow-y: auto;  /* Enables vertical scrolling */
+  border: 1px solid #ccc; /* Optional: Adds a border for clarity */
+  padding: 10px; /* Optional: Adds spacing inside */
+  list-style-type: none; /* Optional: Removes bullet points */
+}
