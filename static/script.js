@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const today = new Date().toISOString().split('T')[0]; 
     document.getElementById("expense-date").value = today;
 
+    const socket = io();
+
     function fetchExpenses() {
         fetch('/get_expenses')
             .then(response => response.json())
@@ -60,6 +62,11 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error('Error deleting expense:', error));
     }
+
+    socket.on('update', function (data) {
+        console.log(data.message);
+        fetchExpenses();  // Refresh expense list
+    });
 
     fetchExpenses(); // load 
 });
