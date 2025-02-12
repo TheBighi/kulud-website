@@ -1,9 +1,13 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import sqlite3
+from flask_socketio import SocketIO, emit
+
+
 
 app = Flask(__name__)
 CORS(app) 
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def home():
@@ -42,8 +46,11 @@ def add_expense():
     cursor.execute('INSERT INTO expenses (name, date, amount) VALUES (?, ?, ?)', (name, date, amount))
     conn.commit()
     conn.close()
-    
+
+    socketio.emit('update', {'message': 'New expense added'})
+
     return jsonify({'message': 'Expense added successfully'}), 201
+
 
 # Route GET
 @app.route('/get_expenses', methods=['GET'])
@@ -66,7 +73,9 @@ def delete_expense(expense_id):
     conn.commit()
     conn.close()
     
+    socketio.emit('update', {'message': 'Expense deleted'})
+
     return jsonify({'message': 'Expense deleted successfully'}), 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    socketio.run(app, host='0.0.0.0', port=8080, debug=True)
