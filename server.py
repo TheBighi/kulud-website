@@ -77,5 +77,20 @@ def delete_expense(expense_id):
 
     return jsonify({'message': 'Expense deleted successfully'}), 200
 
+
+# route DELETE ALL
+@app.route('/delete_all_expenses', methods=['DELETE'])
+def delete_all_expenses():
+    conn = sqlite3.connect('kulud.db')
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM expenses')
+    conn.commit()
+    conn.close()
+    
+    socketio.emit('update', {'message': 'All expenses deleted'})
+
+    return jsonify({'message': 'All expenses deleted successfully'}), 200
+
+
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=8080, debug=True)
