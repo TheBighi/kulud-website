@@ -91,3 +91,19 @@ ul li {
   padding: 10px; /* Optional: Adds spacing inside */
   list-style-type: none; /* Optional: Removes bullet points */
 }
+
+.delete-all-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+  width: 100%;
+  transition: background 0.3s ease;
+}
+
+.delete-all-btn:hover {
+  background: #c82333;
+}
