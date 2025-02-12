@@ -1,2 +1,2 @@
 # kulud-website
-KULUDDDDD veits pythonit backendiks, veits js html ja css ka
+kulud website, backend flask python and stuff
