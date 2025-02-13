@@ -41,7 +41,7 @@ def add_expense():
     # Check if the IP exists in the dictionary
     if client_ip in last_request_times:
         time_since_last_request = current_time - last_request_times[client_ip]
-        if time_since_last_request < 3:  # 3-second cooldown
+        if time_since_last_request < 1:  # 1 cooldownn
             return jsonify({'error': 'Rate limit exceeded. Please wait before submitting again.'}), 429
 
     last_request_times[client_ip] = current_time  # Update timestamp
