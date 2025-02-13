@@ -91,6 +91,18 @@ def delete_all_expenses():
 
     return jsonify({'message': 'All expenses deleted successfully'}), 200
 
+# route kõik kulud
+@app.route('/get_total_expenses', methods=['GET'])
+def get_total_expenses():
+    conn = sqlite3.connect('kulud.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT SUM(amount) FROM expenses')
+    total = cursor.fetchone()[0]  # Fetch the total sum
+    conn.close()
+
+    total = total if total else 0  # If no expenses, return 0
+    return jsonify({'total': total})
+
 
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=8080, debug=True)
