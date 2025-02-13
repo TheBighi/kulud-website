@@ -40,6 +40,14 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => console.error('Error fetching expenses:', error));
     }
+    function fetchTotalExpenses() {
+        fetch('/get_total_expenses')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("total-amount").textContent = `Kulude summa: €${data.total.toFixed(2)}`;
+            })
+            .catch(error => console.error('Error fetching total expenses:', error));
+    }
     form.addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -58,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(() => {
                 fetchExpenses();
+                fetchTotalExpenses();
             })
             .catch(error => console.error('Errorrrrr:', error));
         }
@@ -70,14 +79,28 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(() => {
             fetchExpenses();
+            fetchTotalExpenses();
         })
         .catch(error => console.error('Error deleting expense:', error));
     }
+    let totalAmount = 0;
+
+    document.getElementById("expense-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const expenseAmount = parseFloat(document.getElementById("expense-amount").value);
+    totalAmount += expenseAmount;
+
+    document.getElementById("total-amount").textContent = totalAmount.toFixed(2);
+
+});
 
     socket.on('update', function (data) {
         console.log(data.message);
         fetchExpenses();  // refresh expense kõigil
+        fetchTotalExpenses();
     });
 
     fetchExpenses(); // load 
+    fetchTotalExpenses();
 });
