@@ -89,9 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
     event.preventDefault();
 
     const expenseAmount = parseFloat(document.getElementById("expense-amount").value);
-    totalAmount += expenseAmount;
-
-    document.getElementById("total-amount").textContent = totalAmount.toFixed(2);
 
 });
 
