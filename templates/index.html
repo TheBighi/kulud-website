@@ -7,7 +7,7 @@
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.js"></script>
-    </head>
+</head>
 <body>
     <div class="container">
         <h1>Kulud</h1>
@@ -19,9 +19,11 @@
         </form>
         <h2>Kulude ajalugu</h2>
         <ul id="expense-list"></ul>
+        <div class="total-amount">
+            <span>Kulude summa: </span><span id="total-amount">0</span> €
+        </div>
         <button id="delete-all-btn" class="delete-all-btn">Kustuta kõik</button>
     </div>
-
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
