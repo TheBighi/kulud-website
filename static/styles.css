@@ -107,3 +107,14 @@ ul li {
 .delete-all-btn:hover {
   background: #c82333;
 }
+
+/* Existing CSS */
+.total-amount {
+  font-size: 18px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.total-amount span {
+  color: #28a745; /* You can adjust the color as needed */
+}
