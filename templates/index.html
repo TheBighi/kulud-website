@@ -14,7 +14,7 @@
         <form id="expense-form">
             <input type="text" id="expense-name" placeholder="Kulu nimi" required>
             <input type="date" id="expense-date" required>
-            <input type="number" id="expense-amount" placeholder="Summa (€)" required>
+            <input type="number" min="0" step="0.01" id="expense-amount" placeholder="Summa (€)" required>
             <button type="submit">Lisa kulu</button>
         </form>
         <h2>Kulude ajalugu</h2>
