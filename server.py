@@ -30,7 +30,6 @@ def init_db():
 
 init_db()
 
-# route ADD
 @app.route('/add_expense', methods=['POST'])
 def add_expense():
     data = request.json
@@ -38,9 +37,20 @@ def add_expense():
     date = data.get('date')
     amount = data.get('amount')
 
-    if not name or not date or not amount:
-        return jsonify({'error': 'Invalid input'}), 400
+    # Validate input
+    if not name or not date or amount is None:
+        return jsonify({'error': 'Invalid input: missing required fields'}), 400
+    try:
+        # Convert amount to float for validation
+        amount = float(amount)
+    except ValueError:
+        return jsonify({'error': 'Invalid input: amount must be a number'}), 400
 
+    # Check that the amount is non-negative
+    if amount < 0:
+        return jsonify({'error': 'Invalid input: amount cannot be negative'}), 400
+
+    # Proceed with adding the expense to the database
     conn = sqlite3.connect('kulud.db')
     cursor = conn.cursor()
     cursor.execute('INSERT INTO expenses (name, date, amount) VALUES (?, ?, ?)', (name, date, amount))
@@ -50,7 +60,6 @@ def add_expense():
     socketio.emit('update', {'message': 'New expense added'})
 
     return jsonify({'message': 'Expense added successfully'}), 201
-
 
 # Route GET
 @app.route('/get_expenses', methods=['GET'])
