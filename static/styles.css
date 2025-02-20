@@ -91,7 +91,9 @@ ul li {
   padding: 10px; /* Optional: Adds spacing inside */
   list-style-type: none; /* Optional: Removes bullet points */
 }
-
+#expense-list:empty {
+  display: none;
+}
 .delete-all-btn {
   background: #dc3545;
   color: white;
