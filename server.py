@@ -59,6 +59,8 @@ def add_expense():
         return jsonify({'error': 'Invalid input: amount must be a number'}), 400
     if amount < 0:
         return jsonify({'error': 'Invalid input: amount cannot be negative'}), 400
+    if name[0] == "<":
+        return jsonify({'error': 'No No No no injecting here'}), 400
 
     conn = sqlite3.connect('kulud.db')
     cursor = conn.cursor()
