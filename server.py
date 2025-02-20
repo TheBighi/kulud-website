@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import sqlite3
 from flask_socketio import SocketIO, emit
+import re
 
 app = Flask(__name__)
 CORS(app) 
@@ -33,6 +34,9 @@ from flask import request
 
 last_request_times = {}  # Stores the last request timestamp per IP
 
+def has_only_numbers_and_dots(input_string):
+    return bool(re.match(r'^[0-9.]*$', input_string))
+
 @app.route('/add_expense', methods=['POST'])
 def add_expense():
     client_ip = request.remote_addr  # Get client IP
@@ -61,7 +65,9 @@ def add_expense():
         return jsonify({'error': 'Invalid input: amount cannot be negative'}), 400
     for i in name:
         if i == "<":
-            return jsonify({'error': 'Cant't do injections buddy'}), 400 
+            return jsonify({'error': 'Cant't do injections buddy'}), 400
+    if not has_only_numbers_and_dots(date):
+        return jsonify({'error': 'Cant have letters in dates'}), 400
 
     conn = sqlite3.connect('kulud.db')
     cursor = conn.cursor()
