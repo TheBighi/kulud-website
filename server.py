@@ -65,9 +65,9 @@ def add_expense():
         return jsonify({'error': 'Invalid input: amount cannot be negative'}), 400
     for i in name:
         if i == "<":
-            return jsonify({'error': 'Cant't do injections buddy'}), 400
+            return jsonify({'error': 'Cannot do injections buddy'}), 400
     if not has_only_numbers_and_dots(date):
-        return jsonify({'error': 'Cant have letters in dates'}), 400
+        return jsonify({'error': 'Cannot have letters in dates'}), 400
 
     conn = sqlite3.connect('kulud.db')
     cursor = conn.cursor()
