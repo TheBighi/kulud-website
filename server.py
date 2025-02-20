@@ -34,9 +34,6 @@ from flask import request
 
 last_request_times = {}  # Stores the last request timestamp per IP
 
-def has_only_numbers_and_dots(input_string):
-    return bool(re.match(r'^[0-9.]*$', input_string))
-
 @app.route('/add_expense', methods=['POST'])
 def add_expense():
     client_ip = request.remote_addr  # Get client IP
@@ -66,7 +63,7 @@ def add_expense():
     for i in name:
         if i == "<":
             return jsonify({'error': 'Cannot do injections buddy'}), 400
-    if not has_only_numbers_and_dots(date):
+    if any(char.isalpha() for char in date):
         return jsonify({'error': 'Cannot have letters in dates'}), 400
 
     conn = sqlite3.connect('kulud.db')
